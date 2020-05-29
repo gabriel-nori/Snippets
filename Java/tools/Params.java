@@ -5,11 +5,11 @@ public class Params {
         key,
         value;
 
-    Params(String key, String value){
+    public Params(String key, String value){
         this.key = key;
         this.value = value;
     }
-    String getValues(){
+    public String getValues(){
         return key + "=" + value;
     }
 }

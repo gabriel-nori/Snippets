@@ -10,10 +10,10 @@ public class JsonResponse {
         this.statusCode = statusCode;
         this.json = json;
     }
-    int getStatusCode(){
+    public int getStatusCode(){
         return  statusCode;
     }
-    JsonObject getJson(){
+    public JsonObject getJson(){
         return  json;
     }
 }

@@ -11,25 +11,32 @@ import java.util.List;
 
 public class HTTPRequest{
     private final String urlString;
-    private final List<Params> params;
+    private List<Params> params = null;
     private final int timeOut;
     private int statusCode = 0;
     private JsonObject json = null;
 
-    HTTPRequest(String urlString, List<Params> params, int timeOut){
+    public HTTPRequest(String urlString, List<Params> params, int timeOut){
         this.urlString = urlString;
         this.params = params;
         this.timeOut = timeOut;
     }
+    public HTTPRequest(String urlString, int timeOut){
+        this.urlString = urlString;
+        this.timeOut = timeOut;
+    }
 
-    JsonResponse getResponse() {
+    public JsonResponse getResponse() {
         try {
-            StringBuilder requestUrl = new StringBuilder(urlString + "?");
-            for(int i = 0; i < params.size(); i++){
-                if(i > 0){
-                    requestUrl.append(",");
+            StringBuilder requestUrl = new StringBuilder(urlString);
+            if(params != null && params.size() > 0) {
+                requestUrl.append("?");
+                for (int i = 0; i < params.size(); i++) {
+                    if (i > 0) {
+                        requestUrl.append(",");
+                    }
+                    requestUrl.append(params.get(i).getValues());
                 }
-                requestUrl.append(params.get(i).getValues());
             }
             URL url = new URL(requestUrl.toString());
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
